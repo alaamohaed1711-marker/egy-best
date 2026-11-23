@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>EGY BEST - أفضل مكتبة أفلام</title>
     <meta name="theme-color" content="#141414">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -23,6 +23,7 @@
             --text-secondary: #b3b3b3;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             background-color: var(--bg-dark);
             color: var(--text-color);
@@ -31,10 +32,12 @@
         }
         a { text-decoration: none; color: inherit; }
         .container { width: 100%; display: flex; flex-direction: column; min-height: 100vh; }
+
+        /* === NAV === */
         nav {
             width: 100%;
             padding: 15px 50px;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
@@ -51,9 +54,10 @@
             font-weight: bold;
             cursor: pointer;
             text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+            white-space: nowrap;
         }
         .brand span { color: var(--primary-blue); }
-        .nav-links ul { display: flex; gap: 25px; list-style: none; align-items: center; }
+        .nav-links ul { display: flex; gap: 20px; list-style: none; align-items: center; flex-wrap: wrap; }
         .nav-links a {
             color: var(--text-secondary);
             font-size: 16px;
@@ -61,7 +65,8 @@
             transition: 0.3s;
             border: 1px solid transparent;
             border-radius: 20px;
-            padding: 5px 15px;
+            padding: 8px 15px;
+            display: inline-block;
         }
         .nav-links a:hover {
             color: white;
@@ -72,15 +77,19 @@
             background: #00b894;
             color: white;
             border: none;
-            padding: 8px 18px;
+            padding: 10px 18px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
             font-family: inherit;
             transition: 0.3s;
+            display: inline-block;
+            white-space: nowrap;
         }
-        .download-btn:hover { background: #00a381; }
+        .download-btn:hover { background: #00a381; transform: translateY(-2px); }
+
+        /* === HERO === */
         .hero-banner {
             width: 100%;
             height: 50vh;
@@ -90,6 +99,8 @@
             mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
         }
+
+        /* === SECTIONS === */
         .section-header {
             width: 100%;
             padding: 40px 50px 20px 50px;
@@ -105,12 +116,16 @@
             display: inline-block;
         }
         .section-title.red-border { border-color: var(--primary-red); }
+
+        /* === GRID === */
         .movie-grid {
             padding: 10px 50px 50px 50px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 30px;
         }
+
+        /* === CARDS === */
         .movie-card {
             position: relative;
             background-color: var(--card-bg);
@@ -119,6 +134,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             height: 400px;
+            display: block;
         }
         .movie-card:hover {
             transform: scale(1.05);
@@ -130,7 +146,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
+
+        /* info: ظاهرة دايما على الموبايل، تظهر على hover على الكمبيوتر */
         .movie-info {
             position: absolute;
             top: 0; left: 0;
@@ -140,41 +159,84 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 20px;
-            opacity: 0;
+            opacity: 1;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
-        .movie-card:hover .movie-info { opacity: 1; }
+        /* على الكمبيوتر بس: info مخفية وتظهر على hover */
+        @media (hover: hover) and (pointer: fine) {
+            .movie-info { opacity: 0; pointer-events: none; }
+            .movie-card:hover .movie-info { opacity: 1; pointer-events: auto; }
+        }
         .movie-title { color: white; font-size: 18px; margin-bottom: 8px; font-weight: bold; text-align: center; }
-        .movie-desc { color: #ddd; font-size: 14px; text-align: موقع; }
+        .movie-desc { color: #ddd; font-size: 14px; text-align: center; margin-bottom: 10px; }
         .watch-btn {
             display: block;
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             background-color: var(--primary-red);
             color: white;
             text-align: center;
             border-radius: 4px;
-            margin-top: 10px;
             font-weight: bold;
             font-size: 14px;
+            border: none;
+            cursor: pointer;
+            pointer-events: auto;
         }
+        .watch-btn:hover { background-color: #ff1a25; }
+
+        /* === FOOTER === */
         footer {
             background-color: black;
-            padding: 40px 50px;
+            padding: 40px 30px;
             text-align: center;
             color: var(--text-secondary);
             border-top: 1px solid #333;
             margin-top: auto;
         }
+
+        /* === TABLET === */
+        @media (max-width: 992px) {
+            nav { padding: 15px 30px; }
+            .section-header { padding: 30px 30px 15px 30px; }
+            .movie-grid { padding: 10px 30px 40px 30px; }
+        }
+
+        /* === MOBILE === */
         @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 15px; padding: 15px; }
-            .nav-links ul { gap: 10px; flex-wrap: wrap; justify-content: center; }
-            .nav-links a { font-size: 14px; padding: 5px 10px; }
-            .section-header { padding: 20px 20px 10px 20px; }
-            .movie-grid { padding: 10px 20px 40px 20px; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .hero-banner { height: 30vh; }
-            .movie-card { height: 280px; }
-            .movie-title { font-size: 14px; }
+            nav {
+                padding: 12px 15px;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .brand { font-size: 26px; }
+            .nav-links ul { gap: 8px; justify-content: center; }
+            .nav-links a { font-size: 13px; padding: 6px 12px; }
+            .download-btn { padding: 8px 14px; font-size: 13px; }
+            .section-header { padding: 25px 15px 10px 15px; }
+            .section-title { font-size: 18px; }
+            .movie-grid {
+                padding: 10px 15px 30px 15px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .hero-banner { height: 30vh; min-height: 250px; }
+            .movie-card { height: 220px; }
+            .movie-title { font-size: 13px; margin-bottom: 4px; }
+            .movie-desc { font-size: 11px; margin-bottom: 6px; }
+            .watch-btn { padding: 6px; font-size: 11px; }
+            .movie-info { padding: 10px; }
+            footer { padding: 25px 15px; font-size: 12px; }
+        }
+
+        /* === SMALL MOBILE === */
+        @media (max-width: 380px) {
+            .movie-card { height: 200px; }
+            .movie-info { padding: 8px; }
+            .movie-title { font-size: 12px; }
+            .movie-desc { font-size: 10px; }
+            .watch-btn { padding: 5px; font-size: 10px; }
         }
     </style>
 </head>
@@ -201,7 +263,7 @@
 
        <div class="movie-grid">
             <a href="https://r.cimalight.co/watch.php?vid=b01b710db" class="movie-card">
-               <img src="https://m.media-amazon.com/images/M/MV5BMWYyZjQ3MmUtZDk2MS00ODViLWE5NWYtYjdhMDI1YjE4YTFmXkEyXkFqcGc@._V1_.jpg" alt="7DOGS">
+               <img src="https://m.media-amazon.com/images/M/MV5BMWYyZjQ3MmUtZDk2MS00ODViLWE5NWYtYjdhMDI1YjE4YTFmXkEyXkFqcGc@._V1_.jpg" alt="7DOGS" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">7DOGS فيلم</h3>
                    <p class="movie-desc">دراما و إثارة</p>
@@ -209,7 +271,7 @@
                </div>
            </a>
            <a href="https://r.cimalight.co/watch.php?vid=bd15a98f1" class="movie-card">
-                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQKi-2EDbs-T0MhmqwUAzmZefhso2QySPVs0qkGDRXUhKDNUWcX" alt="برشامة">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQKi-2EDbs-T0MhmqwUAzmZefhso2QySPVs0qkGDRXUhKDNUWcX" alt="برشامة" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">فيلم برشامة</h3>
                    <p class="movie-desc">كوميديا</p>
@@ -217,17 +279,15 @@
                </div>
            </a>
            <a href="https://r.cimalight.co/watch.php?vid=a283c1c04" class="movie-card">
-               <img src="https://a.ltrbxd.com/resized/film-poster/1/2/0/3/3/0/0/1203300-siko-siko-0-230-0-345-crop.jpg?v=bd86c7c29e" alt="سكو سكو">
+               <img src="https://a.ltrbxd.com/resized/film-poster/1/2/0/3/3/0/0/1203300-siko-siko-0-230-0-345-crop.jpg?v=bd86c7c29e" alt="سكو سكو" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">سكو سكو</h3>
-                   <p class-"movie-desc">كوميديا</p>
-                   <span class="watch-btn">شاهد الآن</span>
                    <p class="movie-desc">كوميديا</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
            <a href="https://vid.mycima.cc/play.php?vid=0b730a66a" class="movie-card">
-               <img src="https://img.youm7.com/ArticleImgs/2018/5/29/118223-[[[[[[.jpg" alt="ليلة هنا وسرور">
+               <img src="https://img.youm7.com/ArticleImgs/2018/5/29/118223-[[[[[[.jpg" alt="ليلة هنا وسرور" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">فيلم ليلة هنا وسرور</h3>
                    <p class="movie-desc">كوميديا</p>
@@ -235,7 +295,7 @@
                </div>
            </a>
            <a href="https://r.cimalight.co/watch.php?vid=8d927674d" class="movie-card">
-               <img src="https://kinsta.com/wp-content/uploads/2024/01/tbn-embed-code.png" alt="أحمد و أحمد">
+               <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRnr6ulnLyfHpkH8-_1FrbTPKjpsfY0Q_gQV0hTi2UaA7kAoo7s" alt="أحمد و أحمد" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">فيلم أحمد و أحمد</h3>
                    <p class="movie-desc">كوميديا</p>
@@ -243,37 +303,34 @@
                </div>
            </a>
            <a href="https://r.cimalight.co/watch.php?vid=9496a775e" class="movie-card">
-               <img src="https://img.youtube.com/vi/DKhjezhRPrU/hqdefault.jpg" alt="الشاطر">
+               <img src="https://img.youtube.com/vi/DKhjezhRPrU/hqdefault.jpg" alt="الشاطر" loading="lazy">
                <div class="movie-info">
-                   <h3 class="movie الحا نشر > "شاطر</h3>
+                   <h3 class="movie-title">فيلم الشاطر</h3>
                    <p class="movie-desc">أكشن و كوميديا</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
            <a href="https://r.cimalight.co/watch.php?vid=cc5e614b1" class="movie-card">
-               <img src="https://media.almashhad.com/textEditor/1752479973750_qWeHQ.webp" alt="روكي الغلابة">
+               <img src="https://media.almashhad.com/textEditor/1752479973750_qWeHQ.webp" alt="روكي الغلابة" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">فيلم روكي الغلابة</h3>
-                   <p class="movie-desc">دراما</p>
-                   <span class="movie-title">شاهد الآن</span>
                    <p class="movie-desc">دراما</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
            <a href="https://r.cimalight.co/watch.php?vid=52410ba02" class="movie-card">
-               <img src="https://www.milleworld.com/image_provider_2/webroot/img.php?w=900&crop-to-fit&q=90&src=https://www.milleworld.com/wp-content/uploads/2025/07/%D9%81%D9%8A%D9%84%D9%85-%D8%A7%D9%84%D8%B5%D9%81%D8%A7-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%88%D9%8A%D8%A9-%D8%A8%D9%86%D8%A7%D8%AA-%D8%A3%D9%81%D9%84%D8%A7%D9%85-%D9%85%D8%B5%D8%B1%D9%8A%D8%A9-%D9%83%D9%88%D9%85%D9%8A%D9%8A%D8%AF%D9%8A-%D8%AC%D9%85%D9%88%D8%AF%D9%8A%D8%AF%D8%A9-2025.jpeg" alt="الصفا ثانوية بنات">
+               <img src="https://www.milleworld.com/image_provider_2/webroot/img.php?w=900&crop-to-fit&q=90&src=https://www.milleworld.com/wp-content/uploads/2025/07/%D9%81%D9%8A%D9%84%D9%85-%D8%A7%D9%84%D8%B5%D9%81%D8%A7-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%88%D9%8A%D8%A9-%D8%A8%D9%86%D8%A7%D8%AA-%D8%A3%D9%81%D9%84%D8%A7%D9%85-%D9%85%D8%B5%D8%B1%D9%8A%D8%A9-%D9%83%D9%88%D9%85%D9%8A%D9%8A%D8%AF%D9%8A-%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-2025.jpeg" alt="الصفا ثانوية بنات" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">الصفا ثانوية بنات</h3>
                    <p class="movie-desc">كوميديا مدرسية</p>
-                   <index class="watch-btn">شاهد الآن</span>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
            <a href="https://r.cimalight.co/watch.php?vid=e46ebc08e" class="movie-card">
-               <img src="https://media.filfan.com/NewsPics/FilfanNew/large/581811_0.jpeg" alt="المستريحة">
+               <img src="https://media.filfan.com/NewsPics/FilfanNew/large/581811_0.jpeg" alt="المستريحة" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">فيلم المستريحة</h3>
-                    <p class="movie-desc">كوميديا</p>
+                   <p class="movie-desc">كوميديا</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
@@ -285,7 +342,7 @@
 
        <div class="movie-grid">
             <a href="https://www.youtube.com/watch?v=vLW3gDcVzak&t=8s" class="movie-card">
-               <img src="https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,c_scale,q_auto/cnnarabic/2019/12/15/images/142118.jpg" alt="الفانوس السحرى">
+               <img src="https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,c_scale,q_auto/cnnarabic/2019/12/15/images/142118.jpg" alt="الفانوس السحرى" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">الفانوس السحرى</h3>
                    <p class="movie-desc">كلاسيكي</p>
@@ -293,33 +350,31 @@
                </div>
            </a>
            <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-%d8%a7%d8%b3%d9%85%d8%a7%d8%b9%d9%8a%d9%84-%d9%8a%d8%b3-%d9%81%d9%8a-%d8%a7%d9%84%d8%a8%d9%88%d9%84%d9%8a%d8%b3-1956/watch/" class="movie-card">
-               <img src="https://braichposters.com/cdn/shop/products/Screenshot_20200324-190828-1_1200x1200.jpg?v=1585069797" alt="اسماعيل ياسين">
+               <img src="https://braichposters.com/cdn/shop/products/Screenshot_20200324-190828-1_1200x1200.jpg?v=1585069797" alt="اسماعيل ياسين" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">اسماعيل ياسين فى البوليس</h3>
                    <p class="movie-desc">كوميديا كلاسيكية</p>
-                   < Pages class="watch-btn">شاهد الآن</span>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
            <a href="https://yam.ahwaktv.net/see.php?vid=9de0affec" class="movie-card">
-               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_ExdekDU-FN6UNbQ4rdWSHFiLkUpDiKK54XQGFn9antYbCdDvuzOezCKOb_E8anFxbkPu&s=10" alt="طير انت">
+               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_ExdekDU-FN6UNbQ4rdWSHFiLkUpDiKK54XQGFn9antYbCdDvuzOezCKOb_E8anFxbkPu&s=10" alt="طير انت" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">طير انت</h3>
                    <p class="movie-desc">كوميديا</p>
                    <span class="watch-btn">شاهد الآن</span>
-               </+>
-               <span class="watch-btn">شاهد الآن</span>
+               </div>
            </a>
            <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-%d8%a7%d9%84%d8%aa%d8%ac%d8%b1%d8%a8%d8%a9-%d8%a7%d9%84%d8%af%d9%86%d9%85%d8%a7%d8%b1%d9%83%d9%8a%d8%a9-2003-%d8%a7%d9%88%d9%86%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
-               <img src="https://media.themoviedb.org/t/p/w250_and_h141_face/wqqxk4rK9x59PzuJBQJu0P6hKpE.jpg" alt="التجربة الدينماركية">
-               <div class="movie-intro"> 
+               <img src="https://media.themoviedb.org/t/p/w250_and_h141_face/wqqxk4rK9x59PzuJBQJu0P6hKpE.jpg" alt="التجربة الدينماركية" loading="lazy">
+               <div class="movie-info">
                    <h3 class="movie-title">التجربة الدينماركية</h3>
                    <p class="movie-desc">دراما</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
-           <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-%d8%a7%d9%84%d9%84%d8%b9%d8%a8-%d9%85%d8%b9-%d8%a7%d9%84%d9%83%d8%a8%d8%a7%d8%1-1991-%d8%a7%d9%88%d9%86%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
-               <img src="https://media0106.elcinema.com/uploads/_315x420_81cc0396a44b548da07dac4bada6b95d37c05a06cf4a311dc344b03a54842e12.jpg" alt="اللعب مع الكبار">
+           <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-%d8%a7%d9%84%d9%84%d8%b9%d8%a8-%d9%85%d8%b9-%d8%a7%d9%84%d9%83%d8%a8%d8%a7%d8%b1-1991-%d8%a7%d9%88%d9%86%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
+               <img src="https://media0106.elcinema.com/uploads/_315x420_81cc0396a44b548da07dac4bada6b95d37c05a06cf4a311dc344b03a54842e12.jpg" alt="اللعب مع الكبار" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">اللعب مع الكبار</h3>
                    <p class="movie-desc">كوميديا</p>
@@ -327,7 +382,7 @@
                </div>
            </a>
            <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-%d8%a7%d9%84%d9%86%d9%85%d8%b1-%d9%88%d8%a7%d9%84%d8%a3%d9%86%d8%ab%d9%89-1987/watch/" class="movie-card">
-               <class src="https://www.osn.com/getattachment/watch/hot-topics/osn-blogs/May-2020-(1)/OSN-Pop-Up-%D8%B9%D8%A7%D8%AF%D9%84-%D8%A7%d9%85%d8%a7%d9%85/namer-w-ontha.jpg.aspx" alt="النمر والانثى">
+               <img src="https://www.osn.com/getattachment/watch/hot-topics/osn-blogs/May-2020-(1)/OSN-Pop-Up-%D8%B9%D8%A7%D8%AF%D9%84-%D8%A7%D9%85%D8%A7%D9%85/namer-w-ontha.jpg.aspx" alt="النمر والانثى" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">النمر والانثى</h3>
                    <p class="movie-desc">جريمة و اثارة</p>
@@ -335,15 +390,15 @@
                </div>
            </a>
            <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-%d8%ae%d9%84%d9%8a-%d8%a8%d8%a7%d9%84%d9%83-%d9%85%d9%86-%d8%b9%d9%82%d9%84%d9%83-1985/watch/" class="movie-card">
-               <img src="https://cdn.al-ain.com/lg/images/2022/5/17/ tags-231516-films-that-you-can-watch-tonight-for-adel-imam-6.jpeg" alt="خلى بالك من عقلك">
+               <img src="https://cdn.al-ain.com/lg/images/2022/5/17/133-231516-films-that-you-can-watch-tonight-for-adel-imam-6.jpeg" alt="خلى بالك من عقلك" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">خلى بالك من عقلك</h3>
                    <p class="movie-desc">كوميديا</p>
                    <span class="watch-btn">شاهد الآن</span>
-               </data>
+               </div>
            </a>
            <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-%d8%ae%d9%84%d9%8a-%d8%a8%d8%a7%d9%84%d9%83-%d9%85%d9%86-%d8%b2%d9%88%d8%b2%d9%88-1972/watch/" class="movie-card">
-               <img src="https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,h_1008,c_fill,q_auto,g_center/t_cnnarabic_watermark_logo_v5/cnnarabic/2019/12/15/images/142109.jpg" alt="خلى بالك من زوزو">
+               <img src="https://cnn-arabic-images.cnn.io/cloudinary/image/upload/w_1920,h_1008,c_fill,q_auto,g_center/t_cnnarabic_watermark_logo_v5/cnnarabic/2019/12/15/images/142109.jpg" alt="خلى بالك من زوزو" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">خلى بالك من زوزو</h3>
                    <p class="movie-desc">دراما كوميدية</p>
@@ -352,70 +407,69 @@
            </a>
        </div>
 
-       <div class="section-header" class id="english">
+       <div class="section-header" id="english">
             <span class="section-title">أفلام أجنبية</span>
        </div>
 
        <div class="movie-grid">
             <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-black-adam-2022-fm6tq/watch/" class="movie-card">
-               <img src="https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/original/2022/10/24/1927142_0.jpg" alt="black adam">
+               <img src="https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/original/2022/10/24/1927142_0.jpg" alt="black adam" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">Black Adam</h3>
                    <p class="movie-desc">أكشن و خيال علمي</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
-           <a href="https://web.topcinemaa.com/%d9%81%d9%8a%d9%84%d9%85-red-notice-2021-%d9%85%d9%82%d8%b1%d8%ac%d9%85-%d9%86%d9%87%d8%a7%d9%8a%d8%a9-%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
-               <img src="https://images.dubizzle.com.eg/thumbnails/10719764-600x450.jpeg" alt="red notice">
-               < malformed class="movie-info">
+           <a href="https://web.topcinemaa.com/%d9%81%d9%8a%d9%84%d9%85-red-notice-2021-%d9%85%d8%aa%d8%b1%d8%ac%d9%85-%d8%a7%d9%88%d9%86-%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
+               <img src="https://images.dubizzle.com.eg/thumbnails/10719764-600x450.jpeg" alt="red notice" loading="lazy">
+               <div class="movie-info">
                    <h3 class="movie-title">Red Notice</h3>
                    <p class="movie-desc">أكشن و كوميديا</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
-           <a href="https://web.topcinemaa.com/%d9%81%d9%8a%d9%84%d9%85-mortal-engines-2018-%d9%85%d9%84%d9%82%d8%b1%d8%ac%d9%85-%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
-               <img src="" alt="Mortal Engines">
+           <a href="https://web.topcinemaa.com/%d9%81%d9%8a%d9%84%d9%85-mortal-engines-2018-%d9%85%d8%aa%d8%b1%d8%ac%d9%85-%d8%a7%d9%88%d9%86-%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
+               <img src="https://img.youm7.com/ArticleImgs/2018/12/6/80209-Mortal-Engines.jpg" alt="Mortal Engines" loading="lazy">
                <div class="movie-info">
-                   <h3 class="movieية">Mortal Engines</h3>
+                   <h3 class="movie-title">Mortal Engines</h3>
                    <p class="movie-desc">خيال علمي</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
-           <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-thor-ragnarok-2017-%d9%85%d9%86%d8%aa%d8%b1%d8%ac%d9%85/watch/" class="movie-card">
-               <img src="https://media0103.elcinema.com/uploads/_640x_6cf66ed53b3095d402111f8840c21a8f69110fb36c2b6f01c829713325f18ccc.jpg" alt="Thor: Ragnarok">
+           <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-thor-ragnarok-2017-%d9%85%d8%aa%d8%b1%d8%ac%d9%85/watch/" class="movie-card">
+               <img src="https://media0103.elcinema.com/uploads/_640x_6cf66ed53b3095d402111f8840c21a8f69110fb36c2b6f01c829713325f18ccc.jpg" alt="Thor: Ragnarok" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">Thor: Ragnarok</h3>
                    <p class="movie-desc">أكشن و مغامرات</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
-           <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-rise-of-the-planet-of-the-apes-2011-%d9%85%d8%b1%d8%ac%d9%85/watch/" class="movie-card">
-               <img src="https://images.alborsaanews.com/2014/07/1461359164_579926_670_93036_.jpg" alt="Rise of the Planet of the Apes">
-               <class class="movie-info">
-                   <h3 class="movie-title">Rise of the Planet of the Apes</h1>
+           <a href="https://m.asd.ink/%d9%81%d9%8a%d9%84%d9%85-rise-of-the-planet-of-the-apes-2011-%d9%85%d8%aa%d8%b1%d8%ac%d9%85/watch/" class="movie-card">
+               <img src="https://images.alborsaanews.com/2014/07/1461359164_579926_670_93036_.jpg" alt="Rise of the Planet of the Apes" loading="lazy">
+               <div class="movie-info">
+                   <h3 class="movie-title">Rise of the Planet of the Apes</h3>
                    <p class="movie-desc">خيال علمي</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
            <a href="https://vid.mycima.cc/play.php?vid=c3be24d2f" class="movie-card">
-               <img src="https://www.osn.com/getattachment/b3449e61-10b3-4335-a5de-03ee77234404/the_addams_family-res.jpg.aspx" alt="The Addams Family">
+               <img src="https://www.osn.com/getattachment/b3449e61-10b3-4335-a5de-03ee77234404/the_addams_family-res.jpg.aspx" alt="The Addams Family" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">The Addams Family</h3>
                    <p class="movie-desc">رسوم متحركة و كوميديا</p>
-                   <span class="watch-btn">شاهد مطبعة</span>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
            <a href="https://yam.ahwaktv.net/see.php?vid=55cba3a07" class="movie-card">
-               <img src="https://gate.ahram.org.eg/Media/News/2021/5/11/2021-637642679521517468-151.jpg" alt="Free Guy">
+               <img src="https://gate.ahram.org.eg/Media/News/2021/8/11/2021-637642679521517468-151.jpg" alt="Free Guy" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">Free Guy</h3>
-                   <Egyptian class="movie-desc">أكشن و كوميديا</p>
+                   <p class="movie-desc">أكشن و كوميديا</p>
                    <span class="watch-btn">شاهد الآن</span>
                </div>
            </a>
-           <a href="https://web.topcinemaa.com/%d9%81%d9%8a%d9%84%d9%85-home-alone-1990-%d9%85%d8%aa%d8%b1%d8%ac%d9%85-%d9%84%d8%a7%d9%8a%d9%86/watch/" class=" tags class="movie-card">
-               <img src="https://cdn.al-ain.com/images/2019/8/09/154-122515-foreign-films-suitable-family-watching-eid-adha_700x400.jpeg" alt="Home Alone">
+           <a href="https://web.topcinemaa.com/%d9%81%d9%8a%d9%84%d9%85-home-alone-1990-%d9%85%d8%aa%d8%b1%d8%ac%d9%85-%d8%a7%d9%88%d9%86-%d9%84%d8%a7%d9%8a%d9%86/watch/" class="movie-card">
+               <img src="https://cdn.al-ain.com/images/2019/8/09/154-122515-foreign-films-suitable-family-watching-eid-adha_700x400.jpeg" alt="Home Alone" loading="lazy">
                <div class="movie-info">
                    <h3 class="movie-title">Home Alone</h3>
                    <p class="movie-desc">عائلي و كوميديا</p>
@@ -430,15 +484,13 @@
     </div>
 
     <script>
-        // 🔥 تحميل الموقع كملف HTML
+        // تحميل الموقع كملف HTML
         function downloadApp() {
             let appCode = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
             let blob = new Blob([appCode], { type: "text/html;charset=utf-8" });
             let url = URL.createObjectURL(blob);
             let a = document.createElement("a");
             a.href = url;
-            a.download = "egy-best.html";
-            document "<a> element
             a.download = "egy-best.html";
             document.body.appendChild(a);
             a.click();
@@ -447,21 +499,9 @@
             alert("✅ تم تحميل الموقع! افتح الملف من جهازك من غير نت");
         }
 
-        // 🔥 تسجيل Service Worker
+        // تسجيل Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then(() => console.log('✅ Service Worker مسجل'))
-                    .body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-            alert("✅ تم تحميل الموقع! افتح الملف من جهازك من غير نت");
-        }
-
-        // 🔥 تسجيل Service Worker
-        if ('serviceWorker' in navigator) {
-            HTML.addEventListener('load', () => {
                 navigator.serviceWorker.register('service-worker.js')
                     .then(() => console.log('✅ Service Worker مسجل'))
                     .catch((err) => console.log('❌ خطأ:', err));
