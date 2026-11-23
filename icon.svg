@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+    <rect width="512" height="512" rx="80" fill="#141414"/>
+    <text x="50%" y="35%" font-size="80" text-anchor="middle" fill="#E50914" font-family="Arial" font-weight="900">EGY</text>
+    <text x="50%" y="55%" font-size="80" text-anchor="middle" fill="#0047FF" font-family="Arial" font-weight="900">BEST</text>
+    <text x="50%" y="80%" font-size="100" text-anchor="middle">🎬</text>
+</svg>
