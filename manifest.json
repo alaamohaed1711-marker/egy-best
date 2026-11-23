@@ -1,0 +1,21 @@
+{
+    "name": "EGY BEST - أفضل مكتبة أفلام",
+    "short_name": "EGY BEST",
+    "description": "مكتبة أفلام عربية وأجنبية",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#141414",
+    "theme_color": "#141414",
+    "dir": "rtl",
+    "lang": "ar",
+    "categories": ["entertainment"],
+    "icons": [
+        {
+            "src": "icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
